@@ -34,6 +34,7 @@
         <template slot-scope="scope">
           <template v-if="scope.row.state===1">
             <el-button type="primary" @click="doWithdraw(scope.row)">提现</el-button>
+            <el-button type="danger"  @click="deny(scope.row)">拒绝</el-button>
           </template>
           <template v-else-if="scope.row.state===2">
             <span class="text-primary">提现中</span>
