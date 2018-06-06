@@ -1,0 +1,7 @@
+* { margin:0; padding:0; }
+*, *:before, *:after { box-sizing:border-box; }
+html { height:100%; }
+body { height:100%; font:normal 14px/1.6 'sans-serif'; }
+
+
+.flex-row { display:flex; flex-direction:row; }
