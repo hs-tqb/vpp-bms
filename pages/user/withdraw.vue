@@ -43,7 +43,7 @@
             <span class="text-success">提现成功</span>
           </template>
           <template v-else-if="scope.row.state===4">
-            <span class="text-danger">已拒绝</span>
+            <span class="text-failure">已拒绝</span>
           </template>
         </template>
       </el-table-column>
