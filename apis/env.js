@@ -14,7 +14,7 @@ const env = {
   }
 };
 
-// console.log( process.env.PROCESS_ENV || process.env.NODE_ENV )
+// console.log( env[process.env.ENV_NAME || process.env.NODE_ENV] )
 
 
 export default env[process.env.ENV_NAME || process.env.NODE_ENV]
