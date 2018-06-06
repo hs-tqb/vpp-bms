@@ -32,12 +32,18 @@
       </el-table-column>
       <el-table-column label="操作" width="200">
         <template slot-scope="scope">
-          <el-button :type="scope.row.state===1?'primary':'info'"
-          :disabled="scope.row.state!==1" @click="doWithdraw(scope.row)">
-          {{scope.row.state===4? '已拒绝':'提现'}}
-          </el-button>
-          <!-- 如果可提现,才显示拒绝按钮 -->
-          <el-button type="danger" v-if="scope.row.state===1" @click="deny(scope.row)">拒绝</el-button>
+          <template v-if="scope.row.state===1">
+            <el-button type="primary" @click="doWithdraw(scope.row)">提现</el-button>
+          </template>
+          <template v-else-if="scope.row.state===2">
+            <span class="text-primary">提现中</span>
+          </template>
+          <template v-else-if="scope.row.state===3">
+            <span class="text-success">提现成功</span>
+          </template>
+          <template v-else-if="scope.row.state===4">
+            <span class="text-danger">已拒绝</span>
+          </template>
         </template>
       </el-table-column>
       <!-- <el-table-column prop="description" label="描述"></el-table-column> -->
