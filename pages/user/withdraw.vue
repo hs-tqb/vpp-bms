@@ -88,7 +88,7 @@ export default {
     },
     doWithdraw(obj) {
       // console.log(id)
-      this.$http.post('withdraw', {id:obj.id})
+      this.$http.get('withdraw', {params:{id:obj.id}})
       .then(resp=>{
         if ( resp.state === 0 ) return;
         this.$message.success('提现申请成功')

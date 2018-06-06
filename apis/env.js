@@ -6,7 +6,8 @@ const env = {
     baseURL:'http://112.74.26.159:8205'
   },
   joint: {
-    baseURL:'http://112.74.26.159:8205'
+    // baseURL:'http://112.74.26.159:8205'
+    baseURL:'http://192.168.1.170:8008'
   },
   production: {
     baseURL:'localhost:5555'
