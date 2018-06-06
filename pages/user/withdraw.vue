@@ -15,14 +15,14 @@
     >
       <el-table-column type="index" label="#" width="40"></el-table-column>
       <el-table-column prop="vpp" label="vpp数量" width="100"></el-table-column>
-      <el-table-column label="提现状态" width="100">
+      <!-- <el-table-column label="提现状态" width="100">
         <template slot-scope="scope">
           {{
             scope.row.state===1?'待处理':
             (scope.row.state===2?'已执行打款':'处理成功')
           }}
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column prop="payeeAddress" label="提现地址">
         <template slot-scope="scope">
           <a :href="`https://etherscan.io/address/${scope.row.payeeAddress}`" target="_blank">
@@ -30,20 +30,20 @@
           </a>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="200">
+      <el-table-column label="打款" width="170">
         <template slot-scope="scope">
           <template v-if="scope.row.state===1">
-            <el-button type="primary" @click="doWithdraw(scope.row)">提现</el-button>
+            <el-button type="primary" @click="doWithdraw(scope.row)">打款</el-button>
             <el-button type="danger"  @click="deny(scope.row)">拒绝</el-button>
           </template>
           <template v-else-if="scope.row.state===2">
-            <span class="text-primary">提现中</span>
+            <span class="text-primary">打款执行中</span>
           </template>
           <template v-else-if="scope.row.state===3">
-            <span class="text-success">提现成功</span>
+            <span class="text-success">打款成功</span>
           </template>
           <template v-else-if="scope.row.state===4">
-            <span class="text-failure">已拒绝</span>
+            <span class="text-failure">已拒绝打款</span>
           </template>
         </template>
       </el-table-column>
