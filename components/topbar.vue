@@ -49,11 +49,11 @@
       </el-button>
     </div>
     <div class="fr">
-      <el-button>
+      <!-- <el-button>
         <el-badge value="10" class="item">
           <i class="el-icon-bell"></i>
         </el-badge>
-      </el-button>
+      </el-button> -->
       <el-button class="avatar" @click="toggleLoginState">
         <i></i> {{hasToken?'注销':'登录'}}
       </el-button>
