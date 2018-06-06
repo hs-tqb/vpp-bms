@@ -10,7 +10,7 @@ const env = {
     baseURL:'http://192.168.1.170:8008'
   },
   production: {
-    baseURL:'localhost:5555'
+    baseURL:'http://mg.valp.io'
   }
 };
 
