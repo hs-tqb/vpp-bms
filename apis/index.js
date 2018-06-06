@@ -11,5 +11,6 @@ export default {
   // 登录
   login:'/mg/login/login',
   // 提现
-  withdraw:'/mg/withdrawal/transfer'
+  withdraw:'/mg/withdrawal/transfer',
+  denyWithdrawing:'/mg/withdrawal/reject',
 }

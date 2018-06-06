@@ -30,10 +30,14 @@
           </a>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="100px">
+      <el-table-column label="操作" width="200">
         <template slot-scope="scope">
           <el-button :type="scope.row.state===1?'primary':'info'"
-          :disabled="scope.row.state!==1" @click="doWithdraw(scope.row)">提现</el-button>
+          :disabled="scope.row.state!==1" @click="doWithdraw(scope.row)">
+          {{scope.row.state===4? '已拒绝':'提现'}}
+          </el-button>
+          <!-- 如果可提现,才显示拒绝按钮 -->
+          <el-button type="danger" v-if="scope.row.state===1" @click="deny(scope.row)">拒绝</el-button>
         </template>
       </el-table-column>
       <!-- <el-table-column prop="description" label="描述"></el-table-column> -->
@@ -93,6 +97,13 @@ export default {
         if ( resp.state === 0 ) return;
         this.$message.success('提现申请成功')
         obj.state = 2;
+      })
+    },
+    deny(obj) {
+      this.$http.get('denyWithdrawing', {params:{id:obj.id}})
+      .then(resp=>{
+        if ( resp.state !== 1 ) return;
+        obj.state = 4;
       })
     }
   },
