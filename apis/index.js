@@ -10,7 +10,8 @@ export default {
   getPayoutList:"/mg/payout/findLimit",
   // 登录
   login:'/mg/login/login',
-  // 提现
+  // 打款
   withdraw:'/mg/withdrawal/transfer',
   denyWithdrawing:'/mg/withdrawal/reject',
+  rollbackWithdraw:'/mg/withdrawal/fail'
 }

@@ -38,12 +38,16 @@
           </template>
           <template v-else-if="scope.row.state===2">
             <span class="text-primary">打款执行中</span>
+            <el-button type="danger"  @click="rollback(scope.row)">回滚打款</el-button>
           </template>
           <template v-else-if="scope.row.state===3">
             <span class="text-success">打款成功</span>
           </template>
           <template v-else-if="scope.row.state===4">
             <span class="text-failure">已拒绝打款</span>
+          </template>
+          <template v-else-if="scope.row.state===5">
+            <span class="text-failure">打款失败</span>
           </template>
         </template>
       </el-table-column>
@@ -111,6 +115,13 @@ export default {
       .then(resp=>{
         if ( resp.state !== 1 ) return;
         obj.state = 4;
+      })
+    },
+    rollback(obj) {
+      this.$http.get('rollbackWithdraw', {params:{id:obj.id}})
+      .then(resp=>{
+        if ( resp.state !== 1 ) return;
+        obj.state = 5;
       })
     }
   },
