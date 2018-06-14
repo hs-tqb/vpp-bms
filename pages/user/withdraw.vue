@@ -1,8 +1,4 @@
 <style lang="less">
-  .el-table {
-    tbody tr:odd { background-color:#fafafa; }
-  }
-  .el-pagination { padding:20px 0; text-align:center; }
 </style>
 
 <template>

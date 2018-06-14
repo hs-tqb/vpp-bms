@@ -12,28 +12,11 @@
       <el-table-column type="index" label="#" width="40"></el-table-column>
       <el-table-column prop="amount" label="额度(vpp)"></el-table-column>
       <el-table-column prop="balance" label="余额(vpp)"></el-table-column>
-      <el-table-column label="流水类型">
+      <el-table-column label="流水类型" width="120">
         <template slot-scope="scope">
           {{parseType(scope.row.amountType)}}
         </template>
       </el-table-column>
-      <!-- <el-table-column type="description" label="描述"></el-table-column> -->
-      <!-- <el-table-column type="index" label="#" width="40"></el-table-column>
-      <el-table-column prop="vpp" label="vpp数量" width="100"></el-table-column>
-      <el-table-column prop="payeeAddress" label="收款人">
-        <template slot-scope="scope">
-          <a :href="`https://etherscan.io/address/${scope.row.payee_address}`" target="_blank">
-            {{scope.row.payee_address}}
-          </a>
-        </template>
-      </el-table-column>
-      <el-table-column prop="payeeAddress" label="付款人">
-        <template slot-scope="scope">
-          <a :href="`https://etherscan.io/address/${scope.row.payer_address}`" target="_blank">
-            {{scope.row.payer_address}}
-          </a>
-        </template>
-      </el-table-column> -->
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"

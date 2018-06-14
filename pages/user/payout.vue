@@ -1,14 +1,4 @@
 <style lang="less">
-  .el-table {
-    tbody tr:odd { background-color:#fafafa; }
-  }
-  .el-pagination { padding:20px 0; text-align:center; }
-
-  .text-info    { color:#909399; }
-  .text-warning { color:#E6A23C; }
-  .text-primary { color:#409EFF; }
-  .text-success { color:#67c23a; }
-  .text-failure { color:#f56c6c; }
 </style>
 
 <template>
