@@ -8,6 +8,13 @@
 .text-failure { color:#f56c6c; }
 .bg-primary { background:#409eff; color:#fff; }
 
+
+.el-table {
+  text-align:center;
+  th { text-align:inherit; }
+}
+.el-pagination { padding:20px 0; text-align:center; }
+
 .dialog-container { 
   position:fixed; top:0; left:0; z-index:100; width:100vw; height:100vh; 
   display:flex; justify-content:center; align-items:center;

@@ -4,6 +4,7 @@ export default {
   getCustomerList:'/mg/customer/findLimit',
   getRainOrderList:'/mg/rain/getOrderList',
   getTempOrderList:'/mg/temp/getOrderList',
+  getTrasactionList:'/mg/transactions/findLimit',
   // 用户
   getWithdrawList:"/mg/withdrawal/findLimit",
   getDepositList:"/mg/deposit/findLimit",

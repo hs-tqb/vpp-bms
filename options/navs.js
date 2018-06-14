@@ -13,6 +13,9 @@ export default [
   // {name:'赔付列表', url:'/payoutList'},
 
   {
+    name:'交易流水', url:'/transactionList' 
+  },
+  {
     name:'用户', url:'/user', opened:true, children:[
       {name:'提现', url:'/user/withdraw'},
       {name:'赔付', url:'/user/payout'},

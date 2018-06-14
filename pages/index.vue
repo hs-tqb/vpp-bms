@@ -19,7 +19,7 @@
 
 export default {
   asyncData(ctx) {
-    ctx.redirect('/user/withdraw');
+    ctx.redirect('/transactionList');
   },
   data () {
     return {
