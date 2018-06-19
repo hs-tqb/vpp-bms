@@ -14,5 +14,6 @@ export default {
   // 打款
   withdraw:'/mg/withdrawal/transfer',
   denyWithdrawing:'/mg/withdrawal/reject',
-  rollbackWithdraw:'/mg/withdrawal/fail'
+  rollbackWithdraw:'/mg/withdrawal/fail',
+  doRemit:'/mg/deposit/add',
 }

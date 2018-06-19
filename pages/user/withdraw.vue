@@ -1,8 +1,18 @@
 <style lang="less">
+  #manually { 
+    display:flex; margin:15px 0; width:500px; 
+    .el-input { margin-right:10px; }
+  }
 </style>
 
 <template>
   <div id="page-orderList" v-loading="!dataReady">
+    <h3>打款</h3>
+    <div id="manually">
+      <el-input placeholder="手机号" v-model="manual.mobile" type="tel"></el-input>
+      <el-input placeholder="金额" v-model="manual.amount" type="number" min=1></el-input>
+      <el-button type="primary" @click="doWithdrawByManually">确定</el-button>
+    </div>
     <el-table 
       :data="tableData.rows" 
       style="width:100%" 
@@ -73,6 +83,10 @@ export default {
         currentPage:1,
         total:0,
         rows:[]
+      },
+      manual: {
+        mobile:'',
+        amount:''
       }
     }
   },
@@ -106,6 +120,26 @@ export default {
         if ( resp.state === 0 ) return;
         this.$message.success('提现申请成功')
         obj.state = 2;
+      })
+    },
+    doWithdrawByManually() {
+      let { mobile,amount,text } = this.manual
+      if ( !mobile ) {
+        text = '手机号不能为空'
+      } else if ( !/^((\+|0{1,2})\d{2,4} *)?1[3456789]\d{9}$/.test(mobile) ) {
+        text = '手机号码错误'
+      } else if ( +amount<=0 ) {
+        text = '金额必须大于0'
+      }
+      if ( text ) {
+        this.$message.closeAll()
+        this.$message.error(text)
+        return;
+      }
+      this.$http.get('doRemit', {params:{mobile,amount}})
+      .then(resp=>{
+        if ( resp.state!==1 ) return;
+        this.$message.success('打款成功')
       })
     },
     deny(obj) {
