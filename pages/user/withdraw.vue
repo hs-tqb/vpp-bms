@@ -125,9 +125,9 @@ export default {
     doWithdrawByManually() {
       let { mobile,amount,text } = this.manual
       if ( !mobile ) {
-        text = '手机号不能为空'
-      } else if ( !/^((\+|0{1,2})\d{2,4} *)?1[3456789]\d{9}$/.test(mobile) ) {
-        text = '手机号码错误'
+      //   text = '手机号不能为空'
+      // } else if ( !/^((\+|0{1,2})\d{2,4} *)?1[3456789]\d{9}$/.test(mobile) ) {
+      //   text = '手机号码错误'
       } else if ( +amount<=0 ) {
         text = '金额必须大于0'
       }

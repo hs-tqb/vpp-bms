@@ -10,6 +10,7 @@
       stripe
     >
       <el-table-column type="index" label="#" width="40"></el-table-column>
+      <el-table-column prop="customerId" label="用户ID"></el-table-column>
       <el-table-column prop="amount" label="额度(vpp)"></el-table-column>
       <el-table-column prop="balance" label="余额(vpp)"></el-table-column>
       <el-table-column label="流水类型" width="120">
@@ -17,6 +18,7 @@
           {{parseType(scope.row.amountType)}}
         </template>
       </el-table-column>
+      <el-table-column prop="description" label="备注"></el-table-column>
     </el-table>
     <el-pagination
       @size-change="handleSizeChange"
@@ -36,7 +38,7 @@ export default {
     return {
       dataReady:false,
       tableData:{
-        pageSize:15,
+        pageSize:100,
         currentPage:1,
         total:0,
         rows:[]
