@@ -16,7 +16,7 @@
 .el-pagination { padding:20px 0; text-align:center; }
 
 .dialog-container { 
-  position:fixed; top:0; left:0; z-index:100; width:100vw; height:100vh; 
+  position:fixed; top:0; left:0; z-index:20000; width:100vw; height:100vh; 
   display:flex; justify-content:center; align-items:center;
   background-color: rgba(0,0,0,.7);
   transition-duration:300ms;
