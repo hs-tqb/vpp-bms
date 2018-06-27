@@ -1,7 +1,7 @@
 <style lang="less">
 #page-home {
   .panel { 
-    margin:15px 0; background:#ececec; border-radius:4px; border-bottom:0 none!important; 
+    margin:15px 0; background:#f1f1f1; border-radius:4px; border-bottom:0 none!important; 
     .innerWrapper { display:flex; flex-direction:row; background:#fff; }
     h2 { margin-bottom:5px; }
   }
@@ -10,6 +10,10 @@
       padding:10px;
       div { flex:1; }
     }
+  }
+  .el-table thead {
+    tr,th { background-color:#f1f1f1; }
+    .cell { color:#000; }
   }
 }
 </style>
@@ -32,7 +36,7 @@
     </div>
     <!-- 盈亏 -->
     <div id="pnl" class="panel">
-      <h2>盈亏</h2>
+      <h2>猜涨跌-盈亏</h2>
       <div>
         <el-table :data="pnlToday" style="width:100%">
           <el-table-column prop="targetId" label="币种" width="180"></el-table-column>
@@ -41,12 +45,15 @@
               <span :class="`text-${scope.row.amount<0?'danger':'success'}`">{{scope.row.amount}}</span>
             </template>
           </el-table-column>
+          <!-- <el-table-column label="历史">
+            <template slot-scope="scope">
+              <span :class="`text-${scope.row.total<0?'danger':'success'}`">{{scope.row.total}}</span>
+            </template>
+          </el-table-column> -->
         </el-table>
-      </div>
-      <div>
         <el-table :data="pnlTotal" style="width:100%">
           <el-table-column prop="targetId" label="币种" width="180"></el-table-column>
-          <el-table-column label="总盈亏">
+          <el-table-column label="历史盈亏">
             <template slot-scope="scope">
               <span :class="`text-${scope.row.amount<0?'danger':'success'}`">{{scope.row.amount}}</span>
             </template>
@@ -56,26 +63,22 @@
     </div>
     <!-- 今日 -->
     <div class="coin panel">
-      <h2>币币交易-今日</h2>
+      <h2>猜涨跌-订单</h2>
       <el-table :data="coinTodayCount" style="width:100%">
         <el-table-column prop="targetId" label="币种" width="180"></el-table-column>
-        <el-table-column prop="cnt" label="订单数"></el-table-column>
+        <el-table-column prop="cnt" label="今日订单数"></el-table-column>
         <!-- <el-table-column prop="amount" label="总额"></el-table-column> -->
-        <el-table-column label="金额">
+        <el-table-column label="今日总额">
             <template slot-scope="scope">
               <span class="text-success">+{{scope.row.amount}}</span>
             </template>          
         </el-table-column>
       </el-table>
-    </div>
-    <!-- 总额 -->
-    <div class="coin panel">
-      <h2>币币交易-总额</h2>
       <el-table :data="coinTotalCount" style="width:100%">
         <el-table-column prop="targetId" label="币种" width="180"></el-table-column>
-        <el-table-column prop="cnt" label="订单数"></el-table-column>
+        <el-table-column prop="cnt" label="历史订单数"></el-table-column>
         <!-- <el-table-column prop="amount" label="总额"></el-table-column> -->
-        <el-table-column label="金额">
+        <el-table-column label="历史总额">
             <template slot-scope="scope">
               <span class="text-success">+{{scope.row.amount}}</span>
             </template>          
@@ -84,21 +87,18 @@
     </div>
     <!-- 总赔付 -->
     <div class="payout panel">
-      <h2>币币交易-总赔付</h2>
-      <el-table :data="coinTotalPayout" style="width:100%">
+      <h2>猜涨跌-赔付</h2>
+      <el-table :data="coinTodayPayout" style="width:100%">
         <el-table-column prop="targetId" label="币种" width="180"></el-table-column>
-        <el-table-column label="金额">
+        <el-table-column label="今日总额">
             <template slot-scope="scope">
               <span class="text-failure">-{{scope.row.payout}}</span>
             </template>          
         </el-table-column>
       </el-table>
-    </div>
-    <div class="payout panel">
-      <h2>币币交易-今日赔付</h2>
-      <el-table :data="coinTodayPayout" style="width:100%">
+      <el-table :data="coinTotalPayout" style="width:100%">
         <el-table-column prop="targetId" label="币种" width="180"></el-table-column>
-        <el-table-column label="金额">
+        <el-table-column label="历史总额">
             <template slot-scope="scope">
               <span class="text-failure">-{{scope.row.payout}}</span>
             </template>          
@@ -137,6 +137,30 @@ export default {
           amount:this.customerTotalCount - p.payout
         }
       });
+    },
+    pnlData() {
+      let todayPayout = this.coinTodayPayout;
+      let totalPayout = this.coinTotalPayout;
+      let arr  = [];
+      let temp = new Array(this.coinTodayPayout.length)
+      if ( !temp.length ) return [];
+
+      arr = [1,2,3].map((n,i)=>{
+        console.log(i)
+        let todayTarget = todayPayout[i]
+        let totalTarget = totalPayout[i]
+        totalTarget = totalTarget.targetId === todayTarget.targetId?
+          totalTarget:
+          totalPayout.filter(t=>t.targetId===todayTarget.targetId)[0];
+        if ( !totalTarget ) { return {}; }
+        return { 
+          targetId:totalTarget.targetId, 
+          today:this.customerTodayCount -todayTarget.payout, 
+          total:this.customerTotalCount -totalTarget.payout 
+        };
+      })
+
+      return arr;
     }
   },
   mounted() {
