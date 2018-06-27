@@ -13,6 +13,9 @@ export default [
   // {name:'赔付列表', url:'/payoutList'},
 
   {
+    name:'统计', url:'/',
+  },
+  {
     name:'交易流水', url:'/transactionList' 
   },
   {

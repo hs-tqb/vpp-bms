@@ -49,11 +49,14 @@ instance.interceptors.response.use(
     errorCode = respData.errorCode;
     message   = '';
     duration  = 3000;
-    if ( errorCode == 1050 || errorCode == 1052 ) {
-      message = `<span style="line-height:32px;">${respData.message}</span>
-      <button type="button" style="float:right;" class="el-button el-button--primary el-button--small" onclick="Message.closeAll();$nuxt._router.push('/login');">
-        <span>重新登录</span>
-      </button>`;
+    
+    if ( errorCode == '4001' ) {
+      // message = `<span style="line-height:32px;">${respData.message}</span>
+      // <button type="button" style="float:right;margin-right:30px;" class="el-button el-button--primary el-button--small" onclick="Message.closeAll();$nuxt._router.push('/login');">
+      //   <span>重新登录</span>
+      // </button>`;
+      message = '请重新登录';
+      util.setToken('');
       duration = 0;
     } else if ( respData.state !== 1 ) {
       if ( typeof respData === 'object' ) {
@@ -61,6 +64,7 @@ instance.interceptors.response.use(
         duration = 3000;
       }
     }
+    
     if ( !!message ) {
       Message.closeAll();
       Message.error({

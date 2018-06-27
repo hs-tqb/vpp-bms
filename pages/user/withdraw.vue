@@ -20,6 +20,7 @@
       stripe
     >
       <el-table-column type="index" label="#" width="40"></el-table-column>
+      <el-table-column prop="customerId" label="ID" width="40"></el-table-column>
       <el-table-column prop="vpp" label="vpp数量" width="100"></el-table-column>
       <el-table-column prop="gmtCreate" label="创建时间" width="100"></el-table-column>
       <el-table-column prop="operationTime" label="最后操作时间" width="120"></el-table-column>

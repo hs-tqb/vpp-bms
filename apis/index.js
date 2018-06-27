@@ -16,4 +16,6 @@ export default {
   denyWithdrawing:'/mg/withdrawal/reject',
   rollbackWithdraw:'/mg/withdrawal/fail',
   doRemit:'/mg/deposit/add',
+  // 统计
+  getStatistics:'/mg/index/stata'
 }

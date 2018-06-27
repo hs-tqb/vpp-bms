@@ -5,3 +5,8 @@ body { height:100%; font:normal 14px/1.6 'sans-serif'; }
 
 
 .flex-row { display:flex; flex-direction:row; }
+
+.text-danger,
+.text-failure { color:#F56C6C; }
+.text-success { color:#67C23A; }
+.text-primary { color:#409EFF; }
