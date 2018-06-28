@@ -138,35 +138,37 @@ export default {
         }
       });
     },
-    pnlData() {
-      let todayPayout = this.coinTodayPayout;
-      let totalPayout = this.coinTotalPayout;
-      let arr  = [];
-      let temp = new Array(this.coinTodayPayout.length)
-      if ( !temp.length ) return [];
+    // pnlData() {
+    //   let todayPayout = this.coinTodayPayout;
+    //   let totalPayout = this.coinTotalPayout;
+    //   let arr  = [];
+    //   let temp = new Array(this.coinTodayPayout.length)
+    //   if ( !temp.length ) return [];
 
-      arr = [1,2,3].map((n,i)=>{
-        console.log(i)
-        let todayTarget = todayPayout[i]
-        let totalTarget = totalPayout[i]
-        totalTarget = totalTarget.targetId === todayTarget.targetId?
-          totalTarget:
-          totalPayout.filter(t=>t.targetId===todayTarget.targetId)[0];
-        if ( !totalTarget ) { return {}; }
-        return { 
-          targetId:totalTarget.targetId, 
-          today:this.customerTodayCount -todayTarget.payout, 
-          total:this.customerTotalCount -totalTarget.payout 
-        };
-      })
+    //   arr = [1,2,3].map((n,i)=>{
+    //     console.log(i)
+    //     let todayTarget = todayPayout[i]
+    //     let totalTarget = totalPayout[i]
+    //     totalTarget = totalTarget.targetId === todayTarget.targetId?
+    //       totalTarget:
+    //       totalPayout.filter(t=>t.targetId===todayTarget.targetId)[0];
+    //     if ( !totalTarget ) { return {}; }
+    //     return { 
+    //       targetId:totalTarget.targetId, 
+    //       today:this.customerTodayCount -todayTarget.payout, 
+    //       total:this.customerTotalCount -totalTarget.payout 
+    //     };
+    //   })
 
-      return arr;
-    }
+    //   return arr;
+    // }
   },
   mounted() {
-    this.$http.get('getStatistics', {params:{
-      startDate:'2018-05-05'
-    }})
+    this.$http.get('getStatistics', 
+      // {params:{
+      //   startDate:'2018-05-05'
+      // }}
+    )
     .then(resp=>{
       console.log( resp.data )
       if ( resp.state !== 1 ) return;
