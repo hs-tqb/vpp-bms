@@ -42,7 +42,9 @@
           <el-table-column prop="targetId" label="币种" width="180"></el-table-column>
           <el-table-column label="今日盈亏">
             <template slot-scope="scope">
-              <span :class="`text-${scope.row.amount<0?'danger':'success'}`">{{scope.row.amount}}</span>
+              <span :class="`text-${scope.row.amount<0?'danger':'success'}`">
+                {{scope.row.amount>0?'+':''}} {{scope.row.amount}}
+              </span>
             </template>
           </el-table-column>
           <!-- <el-table-column label="历史">
@@ -55,7 +57,9 @@
           <el-table-column prop="targetId" label="币种" width="180"></el-table-column>
           <el-table-column label="历史盈亏">
             <template slot-scope="scope">
-              <span :class="`text-${scope.row.amount<0?'danger':'success'}`">{{scope.row.amount}}</span>
+              <span :class="`text-${scope.row.amount<0?'danger':'success'}`">
+                {{scope.row.amount>0?'+':''}} {{scope.row.amount}}
+              </span>
             </template>
           </el-table-column>
         </el-table>
@@ -126,7 +130,8 @@ export default {
       return this.coinTodayPayout.map(p=>{
         return {
           targetId:p.targetId,
-          amount:this.customerTodayCount - p.payout
+          // amount:this.customerTodayCount - p.payout
+          amount:this.coinTodayCount.filter(c=>c.targetId===p.targetId)[0].amount - p.payout
         }
       });
     },
@@ -134,7 +139,8 @@ export default {
       return this.coinTotalPayout.map(p=>{
         return {
           targetId:p.targetId,
-          amount:this.customerTotalCount - p.payout
+          // amount:this.customerTotalCount - p.payout
+          amount:this.coinTotalCount.filter(c=>c.targetId===p.targetId)[0].amount - p.payout
         }
       });
     },
