@@ -25,7 +25,7 @@
       <h2>用户</h2>
       <div class="innerWrapper">
         <div>
-          <h3>今日新增</h3>
+          <h3>日新增</h3>
           <p>{{customerTodayCount}}</p>
         </div>
         <div>
@@ -36,11 +36,11 @@
     </div>
     <!-- 盈亏 -->
     <div id="pnl" class="panel">
-      <h2>猜涨跌-盈亏</h2>
+      <h2>币价期权-盈亏</h2>
       <div>
         <el-table :data="pnlToday" style="width:100%">
           <el-table-column prop="targetId" label="币种" width="180"></el-table-column>
-          <el-table-column label="今日盈亏">
+          <el-table-column label="日盈亏">
             <template slot-scope="scope">
               <span :class="`text-${scope.row.amount<0?'danger':'success'}`">
                 {{scope.row.amount>0?'+':''}} {{scope.row.amount}}
@@ -67,12 +67,12 @@
     </div>
     <!-- 今日 -->
     <div class="coin panel">
-      <h2>猜涨跌-订单</h2>
+      <h2>币价期权-订单</h2>
       <el-table :data="coinTodayCount" style="width:100%">
         <el-table-column prop="targetId" label="币种" width="180"></el-table-column>
-        <el-table-column prop="cnt" label="今日订单数"></el-table-column>
+        <el-table-column prop="cnt" label="日订单数"></el-table-column>
         <!-- <el-table-column prop="amount" label="总额"></el-table-column> -->
-        <el-table-column label="今日总额">
+        <el-table-column label="日总额">
             <template slot-scope="scope">
               <span class="text-success">+{{scope.row.amount}}</span>
             </template>          
@@ -91,10 +91,10 @@
     </div>
     <!-- 总赔付 -->
     <div class="payout panel">
-      <h2>猜涨跌-赔付</h2>
+      <h2>币价期权-赔付</h2>
       <el-table :data="coinTodayPayout" style="width:100%">
         <el-table-column prop="targetId" label="币种" width="180"></el-table-column>
-        <el-table-column label="今日总额">
+        <el-table-column label="日总额">
             <template slot-scope="scope">
               <span class="text-failure">-{{scope.row.payout}}</span>
             </template>          
