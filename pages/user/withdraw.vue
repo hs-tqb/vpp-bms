@@ -109,7 +109,11 @@ export default {
     },
     handleCurrentChange(idx) {
       this.tableData.currentPage = idx;
-      this.loadTableData();
+      if(!this.searchData.customerId){
+        this.loadTableData();
+      }else{
+        this.searchByCustomerId()
+      }
     },
     loadTableData() {
       this.dataReady = false
