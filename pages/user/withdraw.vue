@@ -3,6 +3,10 @@
     display:flex; margin:15px 0; width:500px; 
     .el-input { margin-right:10px; }
   }
+  #search {
+    display:flex; margin:15px 0; width: 285px;
+    .el-input { margin-right:10px; }
+  }
 </style>
 
 <template>
@@ -12,6 +16,10 @@
       <el-input placeholder="手机号" v-model="manual.mobile" type="tel"></el-input>
       <el-input placeholder="金额" v-model="manual.amount" type="number" min=1></el-input>
       <el-button type="primary" @click="doWithdrawByManually">确定</el-button>
+    </div>
+    <div id="search">
+      <el-input placeholder="客户ID" v-model="searchData.customerId" type="number"></el-input>
+      <el-button type="primary" @click="searchByCustomerId">查找</el-button>
     </div>
     <el-table 
       :data="tableData.rows" 
@@ -88,6 +96,9 @@ export default {
       manual: {
         mobile:'',
         amount:''
+      },
+      searchData: {
+        customerId: ''
       }
     }
   },
@@ -156,6 +167,21 @@ export default {
         if ( resp.state !== 1 ) return;
         obj.state = 5;
       })
+    },
+    searchByCustomerId() {
+      this.dataReady = false
+      let { pageSize,currentPage} = this.tableData
+      let { customerId } = this.searchData
+      this.$http('getWithdrawList', { 
+        params:{ pageSize, currentPage, customerId } 
+      })
+      .then(resp=>{
+        this.dataReady = true
+        if ( resp.state !== 1 ) return;
+        console.log( resp )
+        this.tableData = { ...resp.data };
+      })
+      .catch(err=>{ this.dataReady = true })
     }
   },
   mounted() {
