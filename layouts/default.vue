@@ -8,7 +8,7 @@
 .text-failure { color:#f56c6c; }
 .bg-primary { background:#409eff; color:#fff; }
 
-
+.el-message { z-index: 20001!important; }
 .el-table {
   text-align:center;
   th { text-align:inherit; }
@@ -50,7 +50,6 @@
         min-height:calc(~"100vh" - @barHeight - @padding * 2);
         // background-color:#f0f0f0;
       }
-
       .panel {
         padding:@padding;
         &:not(:last-child) { border-bottom:1px solid #e5e5e5; }
@@ -63,15 +62,20 @@
 </style>
 
 <template>
-  <div id="__default" class="page-root" :data-page="$route.name">
-    <div id="layout-left">
-      <sidebar/>
+  <div>
+    <div id="loginDialog" v-if="$store.state.showLoginDialog === 1">
+      <login/>
     </div>
-    <div id="layout-right">
-      <topbar/> 
-      <div id="layout-main">
-        <nuxt class="page-container"/>
-      </div>
+    <div id="__default" class="page-root" :data-page="$route.name" v-else-if="$store.state.showLoginDialog === 2">
+        <div id="layout-left">
+          <sidebar/>
+        </div>
+        <div id="layout-right">
+          <topbar/> 
+          <div id="layout-main">
+            <nuxt class="page-container"/>
+          </div>
+        </div>
     </div>
   </div>
 </template>
@@ -86,12 +90,21 @@ Vue.prototype.$util = util
 import sidebar from "~/components/sidebar.vue";
 import topbar from "~/components/topbar.vue";
 import footbar from "~/components/footbar.vue";
+import login from "~/components/login.vue"
 
 export default {
   components: {
     sidebar,
     topbar,
-    footbar
+    footbar,
+    login
+  },
+  mounted() {
+    if(!!util.getToken()) {
+      this.$store.commit('setLoginDialog',{isShow: 2})
+    }else {
+      this.$store.commit('setLoginDialog',{isShow: 1})
+    }
   }
 };
 </script>

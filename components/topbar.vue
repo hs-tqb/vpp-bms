@@ -1,6 +1,7 @@
 <style lang="less" scoped>
   .fl { height:100%; float:left; }
   .fr { height:100%; float:right; }
+  .el-message { z-index: 20001!important; }
   #topbar { 
     background:#373d41;
     button { margin:0; height:100%; border:0 none; background:transparent; }
@@ -14,7 +15,8 @@
       }
     }
     #dialog-login {
-      background:transparent;
+      // background:transparent;
+      background: #fff;
       .inner-wrapper {
         position:relative;
         .close { 
@@ -58,14 +60,14 @@
         <i></i> {{hasToken?'注销':'登录'}}
       </el-button>
     </div>
-    <div id="dialog-login" class="dialog-container" :class="showLoginDialog?'show':''">
+    <!-- <div id="dialog-login" class="dialog-container" :class="showLoginDialog?'show':''">
       <div class="inner-wrapper">
         <i class="close" @click="close"></i>
         <input type="text" v-model="loginDialog.userName" placeholder="用户名">
         <input type="text" v-model="loginDialog.password" placeholder="密码">
         <input type="button" class="bg-primary" value="登录" @click="login">
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -92,9 +94,9 @@ export default {
     isSidebarCollapsed() {
       return this.$store.state.isSidebarCollapsed
     },
-    showLoginDialog() {
-      return this.$store.state.showLoginDialog
-    }
+    // showLoginDialog() {
+    //   return this.$store.state.showLoginDialog
+    // }
   },
   methods: {
     toggleSidebarCollapse(e) {
@@ -107,31 +109,34 @@ export default {
     },
     toggleLoginState() {
       // this.loginDialog.show = this.hasToken
+      console.log(this.showLoginDialog)
       if ( this.hasToken ) {
         this.$util.setToken('');
-        location.reload();
+        this.$store.commit('setLoginDialog',{isShow: 1})
+        // location.reload();
+        console.log('1')
       } else {
         // this.loginDialog.show = true
         this.$store.commit('toggleLoginDialog')
       }
     },
-    login() {
-      let { userName, password } = this.loginDialog;
-      if ( !userName || !password ) {
-        this.$message.closeAll();
-        return this.$message.error('用户名和密码不能为空');
-      }
+    // login() {
+    //   let { userName, password } = this.loginDialog;
+    //   if ( !userName || !password ) {
+    //     this.$message.closeAll();
+    //     return this.$message.error('用户名和密码不能为空');
+    //   }
 
-      console.log( this.$util.getToken() )
-      this.$http.get('login', {params:{ username:userName,password }})
-      .then(resp=>{
-        if ( resp.state === 0 ) return;
-        this.$util.setToken(resp.data.token)
-        // this.loginDialog.show = false;
-        this.$store.commit('toggleLoginDialog')
-        location.reload();
-      })
-    }
+    //   console.log( this.$util.getToken() )
+    //   this.$http.get('login', {params:{ username:userName,password }})
+    //   .then(resp=>{
+    //     if ( resp.state === 0 ) return;
+    //     this.$util.setToken(resp.data.token)
+    //     // this.loginDialog.show = false;
+    //     this.$store.commit('toggleLoginDialog')
+    //     location.reload();
+    //   })
+    // }
   }
 }
 </script>

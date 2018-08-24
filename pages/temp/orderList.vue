@@ -2,11 +2,19 @@
   .el-table {
     tbody tr:odd { background-color:#fafafa; }
   }
+  #search {
+    display:flex; margin:15px 0; width: 285px;
+    .el-input { margin-right:10px; }
+  }
   .el-pagination { padding:20px 0; text-align:center; }
 </style>
 
 <template>
   <div id="page-orderList" v-loading="!dataReady">
+    <div id="search">
+      <el-input placeholder="客户ID" v-model="searchData.customerId" type="number"></el-input>
+      <el-button type="primary" @click="searchByCustomerId">查找</el-button>
+    </div>
     <el-table 
       :data="tableData.rows" 
       style="width:100%" 
@@ -43,6 +51,9 @@ export default {
         currentPage:1,
         total:0,
         rows:[]
+      },
+      searchData: {
+        customerId: ''
       }
     }
   },
@@ -53,7 +64,11 @@ export default {
     },
     handleCurrentChange(idx) {
       this.tableData.currentPage = idx;
-      this.loadTableData();
+      if(!this.searchData.customerId){
+        this.loadTableData();
+      }else{
+        this.searchByCustomerId()
+      }
     },
     loadTableData() {
       this.dataReady = false
@@ -73,6 +88,28 @@ export default {
           return item;
         });
 
+        this.tableData = { ...resp.data, rows };
+      })
+      .catch(err=>{ this.dataReady = true })
+    },
+    searchByCustomerId() {
+      this.dataReady = false
+      let { pageSize,currentPage} = this.tableData
+      let { customerId } = this.searchData
+      this.$http('getTempOrderList', { 
+        params:{ pageSize, currentPage, customerId } 
+      })
+      .then(resp=>{
+        this.dataReady = true
+        if ( resp.state !== 1 ) return;
+
+        let rows = resp.data.rows.map((item,temp)=>{
+          temp = item.amount.split('-');
+          item.title  = item.title.replace(/(\d)/,' $1');
+          item.amount = temp[0]
+          item.payout = temp[1]
+          return item;
+        });
         this.tableData = { ...resp.data, rows };
       })
       .catch(err=>{ this.dataReady = true })

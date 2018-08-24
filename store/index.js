@@ -9,7 +9,7 @@ Vue.use(Vuex)
 const store = () => new Vuex.Store({
   state: {
     isSidebarCollapsed: false,
-    showLoginDialog:false,
+    showLoginDialog: 0,
   },
 
   mutations: {
@@ -17,7 +17,14 @@ const store = () => new Vuex.Store({
       state.isSidebarCollapsed = flag;
     },
     toggleLoginDialog(state) {
-      state.showLoginDialog = !state.showLoginDialog;
+      if(state.showLoginDialog === 1){
+        state.showLoginDialog = 2
+      } else{
+        state.showLoginDialog = 1
+      }
+    },
+    setLoginDialog(state, setData) {
+      state.showLoginDialog = setData.isShow
     }
   },
 

@@ -1,8 +1,16 @@
 <style lang="less">
+  #search {
+    display:flex; margin:15px 0; width: 285px;
+    .el-input { margin-right:10px; }
+  }
 </style>
 
 <template>
   <div id="page-transactionList" v-loading="!dataReady">
+    <div id="search">
+      <el-input placeholder="客户ID" v-model="searchData.customerId" type="number"></el-input>
+      <el-button type="primary" @click="searchByCustomerId">查找</el-button>
+    </div>
     <el-table 
       :data="tableData.rows" 
       style="width:100%" 
@@ -42,6 +50,9 @@ export default {
         currentPage:1,
         total:0,
         rows:[]
+      },
+      searchData: {
+        customerId: ''
       }
     }
   },
@@ -52,13 +63,33 @@ export default {
     },
     handleCurrentChange(idx) {
       this.tableData.currentPage = idx;
-      this.loadTableData();
+      if(!this.searchData.customerId){
+        this.loadTableData();
+      }else{
+        this.searchByCustomerId()
+      }
     },
     loadTableData() {
       this.dataReady = false
       let { pageSize,currentPage } = this.tableData
       this.$http('getTrasactionList', { 
         params:{ pageSize, currentPage } 
+      })
+      .then(resp=>{
+        this.dataReady = true
+        if ( resp.state !== 1 ) return;
+        console.log( resp )
+        console.log( resp.data.rows[0].amount )
+        this.tableData = { ...resp.data };
+      })
+      .catch(err=>{ this.dataReady = true })
+    },
+    searchByCustomerId() {
+      this.dataReady = false
+      let { pageSize,currentPage} = this.tableData
+      let { customerId } = this.searchData
+      this.$http('getTrasactionList', { 
+        params:{ pageSize, currentPage, customerId } 
       })
       .then(resp=>{
         this.dataReady = true
