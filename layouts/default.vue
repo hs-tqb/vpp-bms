@@ -23,6 +23,13 @@
   pointer-events:none; opacity:0;
   &.show { pointer-events:auto; opacity:1; }
 }
+.ellipsis {
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
 #__default {
   display: flex;
   flex-direction: row;

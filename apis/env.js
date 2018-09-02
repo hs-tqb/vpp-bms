@@ -4,7 +4,8 @@ const env = {
   },
   test: {
     // baseURL:'http://112.74.26.159:8205'
-    baseURL:'http://47.89.11.105:8205'
+    // baseURL:'http://47.89.11.105:8205'
+    baseURL: 'http://139.199.85.231:8081'
   },
   joint: {
     // baseURL:'http://112.74.26.159:8205'

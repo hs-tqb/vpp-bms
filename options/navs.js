@@ -23,6 +23,7 @@ export default [
       {name:'提现', url:'/user/withdraw'},
       {name:'赔付', url:'/user/payout'},
       {name:'充值', url:'/user/deposit'},
+      {name:'反馈', url:'/user/feedback'}
     ]
   },
   {name:'高温', url:'/temp', opened:true, children:[

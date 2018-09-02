@@ -15,6 +15,35 @@
     tr,th { background-color:#f1f1f1; }
     .cell { color:#000; }
   }
+  .charts {
+    position: relative;
+    width: 100%;
+  }
+  .title-left {
+    position: absolute;
+    left: 28%;
+    bottom: 40px;
+    margin-left: -28px;
+    color: #333;
+  }
+  .title-right {
+    position: absolute;
+    left: 72%;
+    bottom: 40px;
+    margin-left: -21px;
+    color: #333;
+  }
+  .no-data {
+    position: absolute;
+    left: 72%;
+    top: 50%;
+    margin-left: -42px;
+    color: #333;
+  }
+  .charts-box {
+    width: 100%;
+    height: 400px;
+  }
 }
 </style>
 
@@ -66,13 +95,13 @@
       </div>
     </div>
     <!-- 今日 -->
-    <div class="coin panel">
+    <!-- <div class="coin panel">
       <h2>币价期权-订单</h2>
       <el-table :data="coinTodayCount" style="width:100%">
         <el-table-column prop="targetId" label="币种" width="180"></el-table-column>
-        <el-table-column prop="cnt" label="日订单数"></el-table-column>
-        <!-- <el-table-column prop="amount" label="总额"></el-table-column> -->
-        <el-table-column label="日总额">
+        <el-table-column prop="cnt" label="日订单数"></el-table-column> -->
+        <!-- <el-table-column prop="amount" label="总额"></el-table-column>  无-->  
+        <!-- <el-table-column label="日总额">
             <template slot-scope="scope">
               <span class="text-success">+{{scope.row.amount}}</span>
             </template>          
@@ -80,17 +109,17 @@
       </el-table>
       <el-table :data="coinTotalCount" style="width:100%">
         <el-table-column prop="targetId" label="币种" width="180"></el-table-column>
-        <el-table-column prop="cnt" label="历史订单数"></el-table-column>
-        <!-- <el-table-column prop="amount" label="总额"></el-table-column> -->
-        <el-table-column label="历史总额">
+        <el-table-column prop="cnt" label="历史订单数"></el-table-column> -->
+        <!-- <el-table-column prop="amount" label="总额"></el-table-column>  无-->
+        <!-- <el-table-column label="历史总额">
             <template slot-scope="scope">
               <span class="text-success">+{{scope.row.amount}}</span>
             </template>          
         </el-table-column>
       </el-table>
-    </div>
+    </div> -->
     <!-- 总赔付 -->
-    <div class="payout panel">
+    <!-- <div class="payout panel">
       <h2>币价期权-赔付</h2>
       <el-table :data="coinTodayPayout" style="width:100%">
         <el-table-column prop="targetId" label="币种" width="180"></el-table-column>
@@ -108,7 +137,32 @@
             </template>          
         </el-table-column>
       </el-table>
+    </div> -->
+    <div class="charts" >
+      <div class="charts-box" ref="mychart1">
+        
+      </div>
+      <div class="title-left">历史赔付</div>
+      <div class="title-right">日赔付</div>
+      <div class="no-data" v-show="!coinTodayPayout.length">今日暂无数据</div>
     </div>
+    <div class="charts" >
+      <div class="charts-box" ref="mychart2">
+
+      </div>
+      <div class="title-left">历史总额</div>
+      <div class="title-right">日总额</div>
+      <div class="no-data" v-show="!coinTodayCount.length">今日暂无数据</div>
+    </div>
+    <div class="charts" >
+      <div class="charts-box" ref="mychart3">
+
+      </div>
+      <div class="title-left">历史订单数</div>
+      <div class="title-right">日订单数</div>
+      <div class="no-data" v-show="!coinTodayCount.length">今日暂无数据</div>
+    </div>
+    
   </div>
 </template>
 
@@ -125,7 +179,225 @@ export default {
       dataReady:false
     }
   },
+  methods: {
+    test() {
+      console.log(this.coinTotalPayout)
+      console.log(this.chartsArr(this.coinTotalPayout))
+    },
+    chartsArrPayout(arr) {
+      let newArr = []
+      for(let i=0;i<arr.length;i++) {
+        let item = {name: arr[i].targetId, value: arr[i].payout}
+        newArr.push(item)
+      }
+      return newArr
+    },
+    chartsArrAmount (arr) {
+      let newArr = []
+      for(let i=0;i<arr.length;i++) {
+        let item = {name: arr[i].targetId, value: arr[i].amount}
+        newArr.push(item)
+      }
+      return newArr
+    },
+    chartsArrCnt (arr) {
+      let newArr = []
+      for(let i=0;i<arr.length;i++) {
+        let item = {name: arr[i].targetId, value: arr[i].cnt}
+        newArr.push(item)
+      }
+      return newArr
+    },
+    setEchart() {
+        let dom1 = this.$refs.mychart1
+        this.myChart1 = echarts.init(dom1)
+        this.myChart1.setOption(this.chartsOpt.objA)
+        let dom2 = this.$refs.mychart2
+        this.myChart2 = echarts.init(dom2)
+        this.myChart2.setOption(this.chartsOpt.objB)
+        let dom3 = this.$refs.mychart3
+        this.myChart3 = echarts.init(dom3)
+        this.myChart3.setOption(this.chartsOpt.objC)
+    },
+  },
   computed: {
+    chartsOpt() {
+      let totalPayoutData = this.chartsArrPayout(this.coinTotalPayout)
+      let todayPayoutData = this.chartsArrPayout(this.coinTodayPayout)
+      let totalAmountData = this.chartsArrAmount(this.coinTotalCount)
+      let todayAmountData = this.chartsArrAmount(this.coinTodayCount)
+      let totalCntData = this.chartsArrCnt(this.coinTotalCount)
+      let todayCntData = this.chartsArrCnt(this.coinTodayCount)
+      let objA = {
+        title : [{
+          text: '币价期权-赔付',
+          // subtext: '左为日总额,右为历史总额',
+          x:'center',
+          top: '20px'
+        }],
+        tooltip : {
+          trigger: 'item',
+          formatter: "{a} <br/>{b} : -{c} ({d}%)"
+        },
+        // legend: {
+        //   top: '40px',
+        //   left: '20px',
+        //   orient: 'vertical',
+        //   left: 'left',
+        //   data: ['历史赔付','每日赔付']
+        //  },
+         series : [
+          {
+            name: '历史赔付',
+            type: 'pie',
+            radius : '45%',
+            center: ['28%', '53%'],
+            label: {
+              formatter: '{b}({d}%)'
+            },
+            data: totalPayoutData,
+            itemStyle: {
+              emphasis: {
+                  shadowBlur: 10,
+                  shadowOffsetX: 0,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+              }
+            }
+          },{
+            name: '每日赔付',
+            type: 'pie',
+            radius : '45%',
+            center: ['72%', '53%'],
+            label: {
+              formatter: '{b}({d}%)'
+            },
+            data: todayPayoutData,
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+          }
+        ]
+      }
+      let objB = {
+        title : [{
+          text: '币价期权-订单总额',
+          // subtext: '左为日总额,右为历史总额',
+          x:'center',
+          top: '20px'
+        }],
+        tooltip : {
+          trigger: 'item',
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        // legend: {
+        //   top: '40px',
+        //   left: '20px',
+        //   orient: 'vertical',
+        //   left: 'left',
+        //   data: ['日总额','历史总额']
+        //  },
+         series : [
+          {
+              name: '历史总额',
+              type: 'pie',
+              radius : '45%',
+              center: ['28%', '53%'],
+              label: {
+               formatter: '{b}({d}%)'
+              },
+              data: totalAmountData,
+              itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+              }
+          },{
+            name: '日总额',
+            type: 'pie',
+            radius : '45%',
+            center: ['72%', '53%'],
+            label: {
+              formatter: '{b}({d}%)'
+            },
+            data: todayAmountData,
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+          }
+        ]
+      }
+      let objC = {
+        color:  [
+          '#2ec7c9','#b6a2de','#5ab1ef','#ffb980','#d87a80',
+          '#8d98b3','#e5cf0d','#97b552','#95706d','#dc69aa',
+          '#07a2a4','#9a7fd1','#588dd5','#f5994e','#c05050',
+        '#59678c','#c9ab00','#7eb00a','#6f5553','#c14089'
+        ],
+        title : [{
+          text: '币价期权-订单数',
+          // subtext: '左为日总额,右为历史总额',
+          x:'center',
+          top: '20px'
+        }],
+        tooltip : {
+          trigger: 'item',
+          formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        // legend: {
+        //   top: '40px',
+        //   left: '20px',
+        //   orient: 'vertical',
+        //   left: 'left',
+        //   data: ['日总额','历史总额']
+        //  },
+         series : [
+          {
+              name: '历史订单数',
+              type: 'pie',
+              radius : '45%',
+              center: ['28%', '53%'],
+              label: {
+                formatter: '{b}({d}%)'
+              },
+              data: totalCntData,
+              itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+              }
+          },{
+            name: '日订单数',
+            type: 'pie',
+            radius : '45%',
+            center: ['72%', '53%'],
+            label: {
+              formatter: '{b}({d}%)'
+            },
+            data: todayCntData,
+            itemStyle: {
+                emphasis: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            }
+          }
+        ]
+      }
+      return {objA,objB,objC}
+    },
     pnlToday() {
       return this.coinTodayPayout.map(p=>{
         return {
@@ -170,6 +442,7 @@ export default {
     // }
   },
   mounted() {
+
     this.$http.get('getStatistics', 
       // {params:{
       //   startDate:'2018-05-05'
@@ -182,6 +455,7 @@ export default {
         this[p] = resp.data[p];
       }
       this.dataReady = true;
+      this.setEchart()
     })
   }
 }

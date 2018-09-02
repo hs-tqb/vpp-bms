@@ -19,6 +19,7 @@ module.exports = {
       // { rel:'stylesheet', href:"http://element-cn.eleme.io/1.4/docs.4fd6ff0.css" }
     ],
     script:[
+      { src: 'https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts.common.js'},
       // { src:'https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js' }
     ]
   },

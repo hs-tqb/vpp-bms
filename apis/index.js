@@ -9,6 +9,7 @@ export default {
   getWithdrawList:"/mg/withdrawal/findLimit",
   getDepositList:"/mg/deposit/findLimit",
   getPayoutList:"/mg/payout/findLimit",
+  getSuggestionList: "/mg//suggestion/findLimit",
   // 登录
   login:'/mg/login/login',
   // 打款

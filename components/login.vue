@@ -32,7 +32,7 @@
       <div class="inner-wrapper" >
         <!-- <i class="close" @click="close"></i> -->
         <input type="text" v-model="loginDialog.userName" placeholder="用户名">
-        <input type="text" v-model="loginDialog.password" placeholder="密码">
+        <input type="password" v-model="loginDialog.password" placeholder="密码">
         <input type="button" class="bg-primary" value="登录" @click="login">
       </div>
     
