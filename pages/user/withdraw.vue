@@ -29,7 +29,7 @@
       <el-table-column prop="vpp" label="提现金额" width="100"></el-table-column>
       <el-table-column prop="gas" label="手续费" width="100"></el-table-column>
       <el-table-column prop="gmtCreate" label="创建时间" width="100"></el-table-column>
-      <el-table-column prop="operationTime" label="最后操作时间" width="120"></el-table-column>
+      <el-table-column prop="gmtModified" label="最后操作时间" width="110"></el-table-column>
       <!-- <el-table-column label="提现状态" width="100">
         <template slot-scope="scope">
           {{

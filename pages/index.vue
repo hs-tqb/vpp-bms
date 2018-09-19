@@ -23,14 +23,14 @@
     position: absolute;
     left: 28%;
     bottom: 40px;
-    margin-left: -28px;
+    margin-left: -40px;
     color: #333;
   }
   .title-right {
     position: absolute;
     left: 72%;
     bottom: 40px;
-    margin-left: -21px;
+    margin-left: -33px;
     color: #333;
   }
   .no-data {
@@ -142,16 +142,16 @@
       <div class="charts-box" ref="mychart1">
         
       </div>
-      <div class="title-left">历史赔付</div>
-      <div class="title-right">日赔付</div>
+      <div class="title-left">历史赔付(万)</div>
+      <div class="title-right">日赔付(万)</div>
       <div class="no-data" v-show="!coinTodayPayout.length">今日暂无数据</div>
     </div>
     <div class="charts" >
       <div class="charts-box" ref="mychart2">
 
       </div>
-      <div class="title-left">历史总额</div>
-      <div class="title-right">日总额</div>
+      <div class="title-left">历史总额(万)</div>
+      <div class="title-right">日总额(万)</div>
       <div class="no-data" v-show="!coinTodayCount.length">今日暂无数据</div>
     </div>
     <div class="charts" >
@@ -254,8 +254,8 @@ export default {
             center: ['28%', '53%'],
             label: {
               formatter: function(params) {
-                let val = params.value.toFixed(0)/1000
-                return params.name + ': -' + val + 'k'
+                let val = params.value.toFixed(0)/10000
+                return params.name + ': -' + val.toFixed(2)
               }
             },
             data: totalPayoutData,
@@ -273,8 +273,8 @@ export default {
             center: ['72%', '53%'],
             label: {
               formatter: function(params) {
-                let val = params.value.toFixed(0)/1000
-                return params.name + ': -' + val + 'k'
+                let val = params.value.toFixed(0)/10000
+                return params.name + ': -' + val.toFixed(2)
               }
             },
             data: todayPayoutData,
@@ -314,8 +314,8 @@ export default {
               center: ['28%', '53%'],
               label: {
                 formatter: function(params) {
-                  let val = params.value.toFixed(0)/1000
-                  return params.name + ': -' + val + 'k'
+                  let val = params.value.toFixed(0)/10000
+                  return params.name + ': -' + val.toFixed(2)
                 }
               },
               data: totalAmountData,
@@ -333,8 +333,8 @@ export default {
             center: ['72%', '53%'],
             label: {
               formatter: function(params) {
-                let val = params.value.toFixed(0)/1000
-                return params.name + ': -' + val + 'k'
+                let val = params.value.toFixed(0)/10000
+                return params.name + ': -' + val.toFixed(2)
               }
             },
             data: todayAmountData,
