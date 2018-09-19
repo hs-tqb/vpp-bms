@@ -315,7 +315,7 @@ export default {
               label: {
                 formatter: function(params) {
                   let val = params.value.toFixed(0)/10000
-                  return params.name + ': -' + val.toFixed(2)
+                  return params.name + ': ' + val.toFixed(2)
                 }
               },
               data: totalAmountData,
@@ -334,7 +334,7 @@ export default {
             label: {
               formatter: function(params) {
                 let val = params.value.toFixed(0)/10000
-                return params.name + ': -' + val.toFixed(2)
+                return params.name + ': ' + val.toFixed(2)
               }
             },
             data: todayAmountData,
