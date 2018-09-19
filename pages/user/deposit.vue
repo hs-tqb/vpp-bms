@@ -2,6 +2,7 @@
   .el-table {
     tbody tr:odd { background-color:#fafafa; }
   }
+  
   .manually-box { 
     position: absolute; width: 100%; height: 100%; z-index: 2000; background: rgba(250,250,250,.7);
     
@@ -19,9 +20,9 @@
     }
   }
   #search {
-    display:flex; margin:15px 0; width: 100%;
-    .el-input { margin-right:10px; }
-    #withdrawBtn { position: absolute; left: 300px; }
+     margin:15px 0; width: 390px!important;
+    .el-input { margin-right:10px; width: auto; }
+    // #withdrawBtn { position: absolute; left: 300px; }
   }
   #page-customer-depositList {
     position: relative;

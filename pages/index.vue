@@ -253,7 +253,10 @@ export default {
             radius : '45%',
             center: ['28%', '53%'],
             label: {
-              formatter: '{b}({d}%)'
+              formatter: function(params) {
+                let val = params.value.toFixed(0)/1000
+                return params.name + ': -' + val + 'k'
+              }
             },
             data: totalPayoutData,
             itemStyle: {
@@ -269,7 +272,10 @@ export default {
             radius : '45%',
             center: ['72%', '53%'],
             label: {
-              formatter: '{b}({d}%)'
+              formatter: function(params) {
+                let val = params.value.toFixed(0)/1000
+                return params.name + ': -' + val + 'k'
+              }
             },
             data: todayPayoutData,
             itemStyle: {
@@ -307,7 +313,10 @@ export default {
               radius : '45%',
               center: ['28%', '53%'],
               label: {
-               formatter: '{b}({d}%)'
+                formatter: function(params) {
+                  let val = params.value.toFixed(0)/1000
+                  return params.name + ': -' + val + 'k'
+                }
               },
               data: totalAmountData,
               itemStyle: {
@@ -323,7 +332,10 @@ export default {
             radius : '45%',
             center: ['72%', '53%'],
             label: {
-              formatter: '{b}({d}%)'
+              formatter: function(params) {
+                let val = params.value.toFixed(0)/1000
+                return params.name + ': -' + val + 'k'
+              }
             },
             data: todayAmountData,
             itemStyle: {
@@ -367,7 +379,17 @@ export default {
               radius : '45%',
               center: ['28%', '53%'],
               label: {
-                formatter: '{b}({d}%)'
+                formatter: function(params) {
+                  // if(params.value > 10000) {
+                  //   let val = (params.value.toFixed(0) + '').slice(0,-4)
+                  //   return params.name + ': ' + val + '万'
+                  // }else {
+                  //   let val = params.value.toFixed(0)
+                  //   return params.name + ': ' + val
+                  // }
+                  let val = params.value.toFixed(0)
+                  return params.name + ': ' + val
+                }
               },
               data: totalCntData,
               itemStyle: {
@@ -383,7 +405,17 @@ export default {
             radius : '45%',
             center: ['72%', '53%'],
             label: {
-              formatter: '{b}({d}%)'
+              formatter: function(params) {
+                // if(params.value > 10000) {
+                //   let val = (params.value.toFixed(0) + '').slice(0,-4)
+                //   return params.name + ': ' + val + '万'
+                // }else {
+                //   let val = params.value.toFixed(0)
+                //   return params.name + ': ' + val
+                // }
+                let val = params.value.toFixed(0)
+                return params.name + ': ' + val
+              }
             },
             data: todayCntData,
             itemStyle: {
